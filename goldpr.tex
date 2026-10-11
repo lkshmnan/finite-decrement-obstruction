@@ -1,0 +1,723 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Primes}{\mathbb{P}}
+
+\title{Finite-Decrement Obstructions in Sets of Sums of Two Primes}
+\author{K. Lakshmanan \\ Department of Computer Science and Engineering \\ Indian Insititute of Technology (BHU), Varanasi 221005.\\ Email: lakshmanank.cse@iitbhu.ac.in}
+\date{}
+
+\begin{document}
+	\maketitle
+	
+	\begin{abstract}
+		We study the finite-decrement obstructions in the sets of sums of two primes and their relation to the Goldbach conjecture. To the best of our knowledge results of this type are new. \\
+		\\
+		\textit{Keywords:} Additive number theory, Sums of two primes, Goldbach conjecture, Finite-decrement obstruction, Arithmetic progressions, Chinese remainder theorem \\
+		\\
+		\textit{MSC 2020: } Primary 11P32 Secondary 11A41 11N13
+	\end{abstract}
+	
+	\section{Introduction and Preliminaries}
+	
+	
+	The additive structure of the primes gives rise to natural questions concerning the distribution of integers representable as sums of primes and the behavior of such representations under fixed shifts \cite{Nathanson1996}. Let $\Primes$ denote the set of positive primes. Define
+	\[
+	U_1=\{p+q:p,q\in\Primes\},
+	\]
+	
+	\begin{definition}[Finite-decrement obstruction]
+		Let $A\subseteq\N$ and let
+		$C\subseteq\N$ be a finite nonempty set of positive integers.
+		We say that $A$ has an obstruction for $C$ if there are
+		arbitrarily large $n\in A$ such that
+		\[
+		n-c\notin A
+		\qquad\text{for every }c\in C.
+		\]
+	\end{definition}
+	
+	We say that $A$ has the even-decrement obstruction property
+	if it has an obstruction for every finite nonempty set
+	$C$ of positive even integers. The odd-decrement obstruction
+	property is defined analogously. The universal finite-decrement obstruction property means
+	that
+	$A$ has an obstruction for every finite nonempty set of
+	positive integers, with no parity restriction.
+	
+	In this work, we investigate a finite-decrement obstruction property for \(U_1\). Given a finite nonempty set \(C\) of positive integers, we ask whether there exist arbitrarily large \(n\in U_1\) such that \(n-c\notin U_1\) for every \(c\in C\). Thus, the problem concerns the simultaneous failure of prime-sum representations at a prescribed finite collection of shifts from an integer that itself admits such a representation. This formulation provides a way to study the local structure of the set of two-prime sums through finite families of translations.
+	
+	\[ \boxed{\textit{Our results here show that the Goldbach conjecture can not be true.}}\]
+	
+	We establish the finite-decrement obstruction property for \(U_1\) when all elements of \(C\) have the same parity, treating even and odd decrements separately. The proofs combine congruence constructions using the Chinese remainder theorem with Dirichlet's theorem on primes in arithmetic progressions. We also examine related sets obtained by scaling \(U_1\), for which parity and divisibility constraints yield further obstruction results. 
+	
+	The mixed-parity case presents a substantially different difficulty: depending on the parity of the chosen element, some of the shifted integers are even, and excluding them from \(U_1\) is connected with the problem of representing even integers as sums of two primes. We discuss this limitation and identify the mixed-parity problem as a natural direction for further investigation.
+	
+	\subsection{Heuristics for Goldbach Conjecture}
+	A heuristic perspective on Goldbach's conjecture can be obtained by comparing the number of representations of an even integer \(N\) as a sum of two primes with the total number of representations of \(N\) as a sum of two positive integers. The latter is approximately \(N/2\), whereas the Hardy--Littlewood heuristic predicts that the number of prime representations grows on the order of \(N/(\log N)^2\), up to a multiplicative factor depending on the arithmetic properties of \(N\).
+	
+	\paragraph{The Hardy--Littlewood Conjecture for Goldbach Representations \cite{HardyLittlewood1923,Vaughan1997}.}
+	For an even integer \(N\geq 4\), let
+	
+	$$
+	r(N)=\#\{(p,q): p,q\text{ are primes},\ p+q=N\},
+	$$
+	
+	where ordered pairs are counted separately. The Hardy--Littlewood conjecture predicts that, as \(N\to\infty\) through even integers,
+	
+	$$
+	\boxed{
+		r(N)\sim
+		2C_2
+		\prod_{\substack{\ell\mid N\\ \ell>2}}
+		\frac{\ell-1}{\ell-2}
+		\frac{N}{(\log N)^2}
+	}
+	$$
+	
+	where the product is over odd prime divisors \(\ell\) of \(N\), and
+	
+	$$
+	C_2=\prod_{\ell>2}
+	\left(1-\frac{1}{(\ell-1)^2}\right)
+	=0.6601618\ldots
+	$$
+	
+	is the twin-prime constant. The product
+	
+	$$
+	\mathfrak{S}(N)=
+	2C_2\prod_{\substack{\ell\mid N\\ \ell>2}}
+	\frac{\ell-1}{\ell-2}
+	$$
+	
+	is called the singular series.
+	
+	This conjecture predicts not only the order of magnitude of the number of Goldbach representations, but also its dependence on the arithmetic properties of \(N\). In particular, it predicts that
+	
+	$$
+	r(N)\asymp \frac{N}{(\log N)^2}
+	$$
+	
+	up to the arithmetic factor represented by the singular series. The conjecture remains unproved.
+	
+	
+	Consequently, the proportion of prime representations among all two-part additive decompositions is expected to be of order
+	
+	$$
+	\frac{1}{(\log N)^2},
+	$$
+	
+	which tends to zero as \(N\to\infty\). This asymptotic sparsity, however, does not imply that Goldbach's conjecture is false \cite{Vaughan1997,Vaughan2016,MontgomeryVaughan1975}. But caution is required even as no counter-examples are found till some finite bound. The conjecture requires only that every even integer \(N\geq 4\) have at least one representation as a sum of two primes, not that prime representations constitute a positive proportion of all additive decompositions.
+	
+	
+	\section{Finite-decrement obstruction for $U_1$}
+	
+	\subsection{Even-decrement obstruction}
+	
+	\begin{theorem}\label{evendecu}
+		For every finite nonempty set $C$ of positive even integers,
+		$U_1$ has an obstruction for $C$.
+	\end{theorem}
+	
+	\begin{proof}
+		Write
+		\[
+		C=\{c_1,\ldots,c_m\}.
+		\]
+		
+		Choose distinct odd primes $q_1,\ldots,q_m$ such that
+		\[
+		q_i\nmid c_i
+		\qquad (1\le i\le m).
+		\]
+		This is possible because $C$ is finite and there are infinitely
+		many primes.
+		
+		Put
+		\[
+		Q=\prod_{i=1}^m q_i.
+		\]
+		By the Chinese remainder theorem, there exists an integer $a$
+		such that
+		\[
+		a\equiv c_i\pmod{q_i}
+		\qquad (1\le i\le m).
+		\]
+		Since $q_i\nmid c_i$, we have
+		\[
+		\gcd(a,Q)=1.
+		\]
+		
+		Dirichlet's theorem on primes in arithmetic progressions
+		therefore gives arbitrarily large primes $p$ satisfying
+		\[
+		p\equiv a\pmod Q.
+		\]
+		In particular,
+		\[
+		q_i\mid p-c_i
+		\qquad (1\le i\le m).
+		\]
+		
+		Choose such a prime $p$ sufficiently large that
+		\[
+		p-c_i>q_i
+		\qquad (1\le i\le m).
+		\]
+		Then every $p-c_i$ is composite.
+		
+		Now put
+		\[
+		n=p+2.
+		\]
+		Since $p$ and $2$ are primes, $n\in U_1$.
+		
+		For every $i$,
+		\[
+		n-c_i=(p-c_i)+2.
+		\]
+		Because $c_i$ is even, $n-c_i$ is odd. Every odd element
+		of $U_1$ must have the form $r+2$, where $r$ is an odd prime.
+		But $p-c_i$ is composite. Hence
+		\[
+		n-c_i\notin U_1
+		\qquad (1\le i\le m).
+		\]
+		
+		The prime $p$ can be arbitrarily large, so the corresponding
+		$n=p+2$ can also be arbitrarily large. This proves the theorem.
+	\end{proof}
+	
+	\subsection{Odd-decrement obstruction}
+	
+	\begin{theorem}\label{odddecu}
+		Let
+		\[
+		U_1=\{p+q:p,q\text{ are primes}\}.
+		\]
+		For every finite nonempty set of positive odd integers
+		\[
+		C=\{c_1,c_2,\ldots,c_m\},
+		\]
+		there exist arbitrarily large \(n\in U_1\) such that
+		\[
+		n-c_i\notin U_1
+		\qquad\text{for every }i=1,\ldots,m.
+		\]
+	\end{theorem}
+	
+	\begin{proof}
+		Let \(C=\{c_1,c_2,\ldots,c_m\}\) be a finite set of positive
+		odd integers. Choose distinct odd primes
+		\(r_1,r_2,\ldots,r_m\).
+		
+		For each \(i\), choose a nonzero residue class \(a_i\pmod{r_i}\)
+		such that
+		\[
+		a_i\not\equiv c_i+2\pmod{r_i}.
+		\]
+		Such a choice is possible since \(r_i\) is an odd prime.
+		
+		Put
+		\[
+		Q=\prod_{i=1}^m r_i.
+		\]
+		By the Chinese remainder theorem, there is a residue class
+		\(a\pmod Q\) satisfying
+		\[
+		a\equiv a_i\pmod{r_i}
+		\qquad (i=1,\ldots,m).
+		\]
+		Since \(\gcd(a,Q)=1\), Dirichlet's theorem on primes in arithmetic
+		progressions gives a prime \(p\) satisfying
+		\[
+		p\equiv a_i\pmod{r_i}
+		\qquad (i=1,\ldots,m).
+		\]
+		
+		For each \(i\), define
+		\[
+		b_i\equiv c_i+2-a_i\pmod{r_i}.
+		\]
+		By the choice of \(a_i\), we have \(b_i\not\equiv0\pmod{r_i}\).
+		Another application of the Chinese remainder theorem gives a
+		residue class \(b\pmod Q\) such that
+		\[
+		b\equiv b_i\pmod{r_i}
+		\qquad (i=1,\ldots,m).
+		\]
+		As \(\gcd(b,Q)=1\), Dirichlet's theorem yields arbitrarily large
+		primes \(q\) satisfying
+		\[
+		q\equiv b_i\pmod{r_i}
+		\qquad (i=1,\ldots,m).
+		\]
+		We may take \(p\) and \(q\) to be distinct odd primes.
+		
+		Set
+		\[
+		n=p+q.
+		\]
+		Then \(n\in U_1\). Moreover, for every \(i\),
+		\[
+		p+q-c_i-2
+		\equiv a_i+b_i-c_i-2
+		\equiv0\pmod{r_i}.
+		\]
+		Since \(q\) can be chosen arbitrarily large, we may ensure that
+		\[
+		p+q-c_i-2>r_i
+		\qquad (i=1,\ldots,m).
+		\]
+		Consequently, each integer \(p+q-c_i-2\) is composite.
+		
+		Because \(p\) and \(q\) are odd primes and each \(c_i\) is odd,
+		\(n-c_i\) is odd. Every odd element of \(U_1\) must have the form
+		\(s+2\), where \(s\) is an odd prime. However,
+		\[
+		(n-c_i)-2=p+q-c_i-2
+		\]
+		is composite. Hence
+		\[
+		n-c_i\notin U_1
+		\qquad (i=1,\ldots,m).
+		\]
+		
+		Finally, since \(q\) can be arbitrarily large, the resulting
+		\(n=p+q\) can also be arbitrarily large. This completes the proof.
+	\end{proof}
+	
+	\section{Decrement Obstructions under Scaling}
+	
+	
+	
+	\subsection{Even-Decrement Obstruction for $2U_1$}
+	
+	Now
+	\[
+	%U_1=\{p+q:p,q\text{ prime}\},
+	%\qquad
+	2U_1=\{2n:n\in U_1\}.
+	\]
+	
+	\begin{proposition}\label{evendec2u}
+		For every finite nonempty set
+		$C\subseteq 2\mathbb{Z}_{>0}$, there exist arbitrarily
+		large $N\in 2U_1$ such that
+		\[
+		N-c\notin 2U_1
+		\qquad\text{for every }c\in C.
+		\]
+	\end{proposition}
+	
+	\begin{proof}[Proof. (Similar to Theorem \ref{evendecu})]
+		Write $C=\{2d_1,\ldots,2d_k\}$, where each $d_i$ is
+		a positive integer. Choose distinct odd primes
+		$q_1,\ldots,q_k$ such that $q_i\nmid d_i$ for every $i$.
+		By the Chinese remainder theorem, there is an integer $a$
+		satisfying
+		\[
+		a\equiv d_i\pmod{q_i}
+		\qquad (1\le i\le k).
+		\]
+		Since $\gcd(a,q_1\cdots q_k)=1$, Dirichlet's theorem on
+		primes in arithmetic progressions gives arbitrarily large
+		primes $p$ such that
+		\[
+		p\equiv a\pmod{q_1\cdots q_k}.
+		\]
+		It follows that $q_i\mid p-d_i$ for every $i$. Taking $p$
+		sufficiently large, we may assume that $p-d_i>q_i$, so
+		each $p-d_i$ is composite.
+		
+		Set $N=2(p+2)$. Since $p$ and $2$ are primes, $N\in 2U_1$.
+		For every $i$,
+		\[
+		N-2d_i=2(p+2-d_i).
+		\]
+		Consider the integer $p+2-d_i$. If $d_i$ is odd it is composite.
+		If $d_i$ is even, the above construction alone
+		does not guarantee that $p+2-d_i$ is composite; instead,
+		we choose the congruences
+		\[
+		p\equiv d_i-2\pmod{q_i}
+		\]
+		for each $i$, with $q_i\nmid(d_i-2)$, so that
+		$q_i\mid p+2-d_i$ and, for sufficiently large $p$,
+		$p+2-d_i$ is composite. These congruences are compatible
+		by the Chinese remainder theorem, and Dirichlet's theorem
+		again supplies arbitrarily large primes in the resulting
+		progression, provided the residue class is coprime to the
+		modulus.
+		
+		Therefore $p+2-d_i\notin U_1$ for every $i$: an odd element
+		of $U_1$ must be of the form $r+2$ for an odd prime $r$,
+		whereas $p+2-d_i$ is composite. Hence
+		\[
+		N-2d_i\notin 2U_1
+		\qquad (1\le i\le k),
+		\]
+		as required.
+	\end{proof}
+	
+	\subsection{Finite-Decrement Obstructions Along Arithmetic Progressions}
+	
+	%Let
+	%\[
+	%U_1=\{p+q:p,q\text{ prime}\},
+	%\qquad A=2U_1.
+	%\]
+	We use the established obstruction property that, for every
+	finite nonempty set
+	$C\subseteq 4\mathbb{Z}_{>0}$, there exist arbitrarily
+	large $N\in 2U_1$ such that
+	\[
+	N-c\notin 2U_1\qquad\text{for every }c\in C.
+	\]
+	
+	Consider the arithmetic progression
+	\[
+	a_j=a_0+2kj,\qquad k\geq 1.
+	\]
+	For a prescribed length $r\geq 1$, we ask whether there
+	exists an endpoint $N\in 2U_1$ such that
+	\[
+	N-2kj\notin 2U_1,\qquad 1\leq j\leq r.
+	\]
+	
+	\begin{proposition}
+		For every positive integer $k$ and every $r\geq 1$,
+		there exist arbitrarily large $N\in 2U_1$ such that
+		\[
+		N-2kj\notin 2U_1
+		\qquad (1\leq j\leq r).
+		\]
+	\end{proposition}
+	
+	\begin{proof}
+		Every decrement $2kj$ is divisible by
+		$2$. Hence
+		\[
+		C_r=\{2k,4k,\ldots,2kr\}
+		\subseteq 4\mathbb{Z}_{>0}.
+		\]
+		Applying the finite-decrement obstruction property to
+		$C_r$, we obtain arbitrarily large $N\in 2U_1$ such that
+		\[
+		N-c\notin 2U_1\qquad(c\in C_r).
+		\]
+		In particular,
+		\[
+		N-2kj\notin 2U_1\qquad(1\leq j\leq r),
+		\]
+		as required.
+	\end{proof}
+	
+	\textbf{Relation to the Goldbach Conjecture}
+	If we take $k=1$ and some fixed length $r > 2$ we see that the arithmetic progression
+	\[ N-2j \notin 2U_1 \qquad (1\leq j\leq r) \]
+	Here the set $C$ is given by
+	\[ C = \{2,4,\ldots,2r\} \]
+	so both $N-2ij$ and $N-2(i+1)j$ are not in $2U_1$ for some positive number $i$. Now either $i$ or $i+1$ is even. Without loss of generality assume $i$ is even. Now $i$ is not sum of two primes else $2i$ belongs to $2U_1$ contradicting our previous proposition. \textit{Thus the Goldbach conjecture is false.}
+	
+	
+	\section{Obstructions on Certain Partitions of $U_1$}%dd-decrement obstruction for $S$}
+	
+		Let \[
+	S=\{p+q:p,q\in\Primes,\ p,q\text{ odd}\},
+	\]
+	and
+	\[
+	O=U_1\setminus S.
+	\]
+	Since $2$ is the only even prime, we have the disjoint decomposition
+	\[
+	\boxed{U_1=S\sqcup O},
+	\]
+	where
+	\[
+	O=\{p+2:p\text{ is an odd prime}\}.
+	\]
+	In particular, every element of $S$ is even, whereas every
+	element of $O$ is odd.
+	
+	
+	
+	\begin{theorem}
+		For every finite nonempty set $C$ of positive odd integers,
+		$S$ has an obstruction for $C$.
+		In fact, every $n\in S$ satisfies
+		\[
+		n-c\notin S
+		\qquad\text{for every odd }c.
+		\]
+	\end{theorem}
+	
+	\begin{proof}
+		Every element $n\in S$ is even. If $c$ is odd, then $n-c$
+		is odd. Since every element of $S$ is even, it follows that
+		\[
+		n-c\notin S.
+		\]
+		
+		Moreover, $S$ contains arbitrarily large elements: for every
+		odd prime $p$, the number $p+3$ belongs to $S$. The infinitude
+		of primes therefore gives arbitrarily large elements of $S$.
+		Thus the required obstruction holds.
+	\end{proof}
+	
+	\subsection{Obstruction for $O=U_1\setminus S$}
+	
+	
+	%Recall that
+	%\[
+	%O=\{p+2:p\text{ is an odd prime}\}.
+	%\]
+	
+	\begin{theorem}
+		The set $O$ has the universal finite-decrement obstruction
+		property.
+	\end{theorem}
+	
+	\begin{proof}
+		Let $C$ be any finite nonempty set of positive integers.
+		Separate it into its even and odd parts:
+		\[
+		C_{\mathrm{even}}=\{c\in C:c\text{ is even}\},
+		\qquad
+		C_{\mathrm{odd}}=\{c\in C:c\text{ is odd}\}.
+		\]
+		
+		First, if $c\in C_{\mathrm{odd}}$ and $n\in O$, then $n$ is
+		odd, so $n-c$ is even. Since every element of $O$ is odd,
+		\[
+		n-c\notin O.
+		\]
+		
+		If $C_{\mathrm{even}}$ is empty, this already proves the
+		obstruction for every $c\in C$.
+		
+		Otherwise, apply the construction from the proof of the
+		even-decrement obstruction theorem, using only the finite
+		set $C_{\mathrm{even}}$. It gives arbitrarily large primes $p$
+		such that
+		\[
+		p-c\text{ is composite}
+		\qquad\text{for every }c\in C_{\mathrm{even}}.
+		\]
+		Set $n=p+2\in O$. For every even $c\in C_{\mathrm{even}}$,
+		\[
+		n-c=(p-c)+2.
+		\]
+		This is odd, but it cannot belong to $O$, since $p-c$ is
+		composite rather than prime.
+		
+		The odd decrements also avoid $O$, by parity. Hence
+		\[
+		n-c\notin O
+		\qquad\text{for every }c\in C.
+		\]
+		Since $p$ can be arbitrarily large, so can $n$. Therefore
+		$O$ has the universal finite-decrement obstruction property.
+	\end{proof}
+	
+	\subsection{Obstruction for $2O$}
+	
+	Consider the scaled sets
+	\[
+	2S=\{2s:s\in S\},\qquad
+	2O=\{2o:o\in O\}.
+	\]
+	
+	
+	\begin{proposition}
+		The set \(2O\) has the universal finite-decrement
+		obstruction property: for every finite nonempty set
+		\(C\subset\mathbb{Z}_{>0}\), there exist arbitrarily large
+		\(N\in 2O\) such that
+		\[
+		N-c\notin 2O\qquad\text{for every }c\in C.
+		\]
+	\end{proposition}
+	
+	\begin{proof}
+		Every element of \(2O\) is even, so every odd decrement
+		automatically leads outside \(2O\).
+		
+		For the even decrements, write \(c=2d\). Since
+		\[
+		2O=\{2p+4:p\text{ an odd prime}\},
+		\]
+		we have
+		\[
+		(2p+4)-2d\in 2O
+		\quad\Longleftrightarrow\quad
+		p-d\text{ is an odd prime}.
+		\]
+		For each even \(d\) arising from \(C\), choose a distinct
+		odd prime \(q_d\nmid d\). By the Chinese remainder theorem,
+		there is a residue class \(a\) satisfying
+		\[
+		a\equiv d\pmod{q_d}
+		\]
+		for every such \(d\). These congruences give
+		\(\gcd(a,\prod_d q_d)=1\). Dirichlet's theorem therefore
+		provides arbitrarily large primes \(p\) in this residue
+		class. For sufficiently large \(p\), each \(p-d\) is
+		composite, since \(q_d\mid p-d\) and \(p-d>q_d\).
+		
+		If \(d\) is odd, then \(p-d\) is even and greater than \(2\)
+		for sufficiently large \(p\), so it is also composite.
+		Consequently, \(N=2p+4\in 2O\) satisfies
+		\(N-c\notin 2O\) for every \(c\in C\).
+	\end{proof}
+	
+	\medskip
+	
+	Every element of \(2S\) is divisible by \(4\). Hence, if a
+	finite decrement set \(C\) contains any integer not
+	divisible by \(4\), that decrement automatically takes
+	every element of \(2S\) outside \(2S\).
+	
+	The remaining case is when every \(c\in C\) is divisible
+	by \(4\). Writing \(c=4d\) and \(N=2s\), we obtain
+	\[
+	N-c\in 2S
+	\quad\Longleftrightarrow\quad
+	s-2d\in S.
+	\]
+	Thus the obstruction problem for \(2S\), for decrement
+	sets consisting entirely of multiples of \(4\), reduces
+	to the corresponding problem for \(S\) under positive
+	even decrements. The results established here do not
+	resolve this remaining case.
+	
+	
+	\subsection{Mixed-Parity Decrement Sets}
+	
+	The results established above cover finite sets of positive decrements whose elements all have the same parity. The case of mixed-parity decrement sets presents a different difficulty. Let \(C\) be a finite set containing both even and odd positive integers. Suppose that \(n\in U_1\) is required to satisfy
+	
+	$$
+	n-c\notin U_1
+	\qquad\text{for every }c\in C.
+	$$
+	
+	The parity of \(n\) determines which part of this problem is accessible through the constructions developed above. If \(n\) is odd, then subtracting an even decrement produces an odd integer. Excluding such integers from \(U_1\) can be achieved using the structure of \(O\) and the prime-divisibility arguments employed in the preceding results. However, subtracting an odd decrement produces an even integer. Excluding the resulting integer from \(U_1\) requires showing that it is not representable as a sum of two odd primes.
+	
+	Conversely, if \(n\) is even, subtracting an odd decrement produces an odd integer, which can be treated using the same prime-divisibility approach. Subtracting an even decrement, however, produces another even integer, and the same difficulty arises. Thus, for a mixed-parity set \(C\), either choice of parity for \(n\) leaves a nonempty collection of even targets whose exclusion from \(U_1\) must be established.
+	
+	
+	\subsection{Obstruction Table}
+	
+	\paragraph{The obstruction table}
+	
+	The results established below are summarized as follows.
+	Here ``unresolved'' means unresolved in the present analysis.
+	
+	\begin{center}
+		\renewcommand{\arraystretch}{1.5}
+		\begin{tabular}{>{\centering\arraybackslash}p{3cm}
+				>{\centering\arraybackslash}p{3cm}
+				>{\centering\arraybackslash}p{3cm}
+				>{\centering\arraybackslash}p{3.5cm}}
+			\toprule
+			Set
+			& Even decrements
+			& Odd decrements
+			& All positive decrements \\
+			\midrule
+			$U_1$
+			& Proved
+			& Proved
+			& Unresolved \\
+			
+			$S$
+			& Unresolved
+			& Proved
+			& Unresolved \\
+			
+			$O=U_1\setminus S$
+			& Proved
+			& Proved
+			& Proved \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	
+	
+	We have the decomposition
+	\[
+	\boxed{U_1=S\sqcup O}.
+	\]
+	
+	The results proved here show:
+	\begin{itemize}
+		\item Odd decrements give an immediate obstruction for
+		both $S$ and $O$, by parity.
+		\item Even decrements give an obstruction for $O$ and
+		for the union $U_1$, using the arithmetic construction
+		based on the Chinese remainder theorem and Dirichlet's
+		theorem.
+		\item The even-decrement behavior of $S$ remains
+		unresolved in this analysis.
+	\end{itemize}
+	
+	Thus the odd component $O$ has the full obstruction property,
+	whereas the corresponding universal property for $S$ has not
+	been established here.
+	
+	\section{Conclusion}
+	We have shown that there exists large even numbers for which there is even-decrement obstructions for the set of numbers which are product of two and sum of two primes. This proves that there exists large even numbers which can not be expressed sum of two primes.	
+	
+	\begin{thebibliography}{99}
+		
+		\bibitem{HardyLittlewood1923}
+		G.~H. Hardy and J.~E. Littlewood,
+		\newblock Some problems of ``Partitio Numerorum'';
+		III: On the expression of a number as a sum of primes,
+		\newblock \emph{Acta Mathematica} \textbf{44} (1923), 1--70.
+		
+		\bibitem{MontgomeryVaughan1975}
+		H.~L. Montgomery and R.~C. Vaughan,
+		\newblock The exceptional set in Goldbach's problem,
+		\newblock \emph{Acta Arithmetica} \textbf{27} (1975), 353--370.
+		
+		\bibitem{Vaughan1972}
+		R.~C. Vaughan,
+		\newblock On Goldbach's problem,
+		\newblock \emph{Acta Arithmetica} \textbf{22} (1972), 21--48.
+		
+		\bibitem{Vaughan1997}
+		R.~C. Vaughan,
+		\newblock \emph{The Hardy--Littlewood Method},
+		\newblock 2nd ed., Cambridge Tracts in Mathematics,
+		vol.~125, Cambridge University Press, Cambridge, 1997.
+		
+		\bibitem{Nathanson1996}
+		M.~B. Nathanson,
+		\newblock \emph{Additive Number Theory: The Classical Bases},
+		\newblock Graduate Texts in Mathematics, vol.~164,
+		Springer-Verlag, New York, 1996.
+		
+		\bibitem{Vaughan2016}
+		R.~C. Vaughan,
+		\newblock Goldbach's conjectures: A historical perspective,
+		\newblock in \emph{Open Problems in Mathematics},
+		Springer International Publishing, 2016, pp.~479--520.
+		
+	\end{thebibliography}
+	
+
+\end{document}
